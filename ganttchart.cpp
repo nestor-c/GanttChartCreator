@@ -28,20 +28,46 @@ int GanttChart::parse(std::string time1){
 }
 
 void GanttChart::printChart(){
-	
+	printTop_Chart();
+	for(int i=0;i<(termSize.ws_row-3);i++){
+		printMid_Chart();
+	}
+	printBot_Chart();
+}
+
+void GanttChart::printTop_Chart(){	
 	std::string  tl_corner = u8"┏";
 	std::string  tr_corner = u8"┓";
+	std::string  bridge = u8"━";
+
+	for(int i=0; i < (termSize.ws_col * .5);i++)
+	{
+		if(i==0) std::cout << tl_corner;
+		else if (i==(termSize.ws_col*.5)-1) {std::cout << tr_corner; std::cout <<std::endl;}
+		else std::cout << bridge;
+	}
+
+}
+void GanttChart::printMid_Chart(){
+	std::string div = u8"┃";
+
+	for(int i=0; i<(termSize.ws_col*.5);i++){
+		if(i==0){std::cout<< div;}
+		else if(i==(termSize.ws_col*.5)-1){std::cout<<div; std::cout<<std::endl;}
+		else std::cout << " ";
+	}
+}
+void GanttChart::printBot_Chart(){
 	std::string  bl_corner = u8"┗";
 	std::string  br_corner = u8"┛";
 	std::string  bridge = u8"━";
-	for(int i = 0; i < termSize.ws_col;i++){
-		if(i==0) std::cout << tl_corner;
-		
-		if(i==termSize.ws_col-2) {std::cout<<tr_corner; return;}
-		std::cout << bridge;
-		
 
-	}	
+	for(int i=0; i < (termSize.ws_col * .5);i++)
+	{
+		if(i==0) std::cout << bl_corner;
+		else if (i==(termSize.ws_col*.5)-1) {std::cout << br_corner; std::cout <<std::endl;}
+		else std::cout << bridge;
+	}
 }
 
 int GanttChart::getTerminalSize(){
